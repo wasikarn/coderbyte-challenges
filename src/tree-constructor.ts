@@ -8,20 +8,43 @@ function TreeConstructor(strArr: string[]): boolean {
     const parent = Number(parentStr);
 
     // Count how many parents each child has
-    if (childCount[child]) return false;
-    childCount[child] = (childCount[child] || 0) + 1;
+    if (!checkChildCount(childCount, child)) return false;
 
     // Count how many children each parent has
-    parentCount[parent] = (parentCount[parent] || 0) + 1;
-    if (parentCount[parent] > 2) return false;
+    if (!checkParentCount(parentCount, parent)) return false;
   }
 
-  // Determine the root by checking nodes that are only parents and not children
+  return hasSingleRoot(parentCount, childCount);
+}
+
+function checkChildCount(
+  childCount: Record<string, number>,
+  child: number,
+): boolean {
+  if (childCount[child]) return false;
+
+  childCount[child] = (childCount[child] || 0) + 1;
+
+  return true;
+}
+
+function checkParentCount(
+  parentCount: Record<string, number>,
+  parent: number,
+): boolean {
+  parentCount[parent] = (parentCount[parent] || 0) + 1;
+
+  return parentCount[parent] <= 2;
+}
+
+function hasSingleRoot(
+  parentCount: Record<string, number>,
+  childCount: Record<number, number>,
+): boolean {
   const roots: number[] = Object.keys(parentCount)
     .map(Number)
     .filter((parent: number): boolean => !childCount[parent]);
 
-  // There should be exactly one root
   return roots.length === 1;
 }
 
