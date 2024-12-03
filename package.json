@@ -1,0 +1,9 @@
+{
+  "dependencies": {},
+  "devDependencies": {
+    "eslint": "^9.16.0",
+    "prettier": "^3.4.1",
+    "tsconfig-inspect": "^1.0.8",
+    "typescript": "^5.7.2"
+  }
+}

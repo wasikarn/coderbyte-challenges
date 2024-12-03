@@ -56,4 +56,4 @@ function MinWindowSubstring(strArr: [string, string]): string {
 
 // keep this function call here
 // @ts-ignore
-console.log(MinWindowSubstring(readline()));
+console.log(MinWindowSubstring(["aaabaaddae", "aed"]));
