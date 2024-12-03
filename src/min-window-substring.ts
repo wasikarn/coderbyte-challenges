@@ -1,7 +1,7 @@
 function MinWindowSubstring(strArr: [string, string]): string {
   const [N, K] = strArr;
 
-  if (K.length > N.length) return ""
+  if (K.length > N.length) return '';
 
   const charCountK: Record<string, number> = {};
 
@@ -16,32 +16,32 @@ function MinWindowSubstring(strArr: [string, string]): string {
   const windowCharCount: Record<string, number> = {};
 
   for (let right = 0; right < N.length; right++) {
-    const charRight = N[right];
+    const charRight: string = N[right] as string;
 
     if (charRight in charCountK) {
       windowCharCount[charRight] = (windowCharCount[charRight] || 0) + 1;
 
-      if (windowCharCount[charRight] <= charCountK[charRight]) {
+      if (windowCharCount[charRight] <= (charCountK[charRight] || 0)) {
         matchCount++;
       }
     }
 
     while (matchCount === K.length) {
-      const windowLength = right - left + 1;
+      const windowLength: number = right - left + 1;
 
       if (windowLength < minLength) {
         minLength = windowLength;
         minStart = left;
       }
 
-      const charLeft = N[left];
+      const charLeft: string = N[left] as string;
 
       if (charLeft in charCountK) {
-        if (windowCharCount[charLeft] === charCountK[charLeft]) {
+        if (windowCharCount[charLeft] === (charCountK[charLeft] || 0)) {
           matchCount--;
         }
 
-        windowCharCount[charLeft]--;
+        windowCharCount[charLeft] = (windowCharCount[charLeft] || 0) - 1;
       }
 
       left++;
@@ -49,11 +49,8 @@ function MinWindowSubstring(strArr: [string, string]): string {
   }
 
   // code goes here
-  return minLength === Infinity
-    ? ''
-    : N.slice(minStart, minStart + minLength);
+  return minLength === Infinity ? '' : N.slice(minStart, minStart + minLength);
 }
 
 // keep this function call here
-// @ts-ignore
-console.log(MinWindowSubstring(["aaabaaddae", "aed"]));
+console.log(MinWindowSubstring(['aaabaaddae', 'aed']));
